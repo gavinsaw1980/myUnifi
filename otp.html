@@ -1,0 +1,183 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MyUnifi</title>
+    <meta name="description" content="" />
+    <meta name="MobileOptimized" content="width" />
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+<body>
+
+  <div class="box" style="background-color: #fff !important;">
+    <div class="header">
+      <div class="grid-x">
+        <div class="cell small-4 text-left pl20">
+            <a href="insert-mobile-number.html" target="_self"><img src="assets/img/icon-arrow-right.png" alt="Back"></a>
+        </div>
+        <div class="cell small-4">
+            <div class="progress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuetext="50 percent" aria-valuemax="100" style="margin-top: 38px; height: 3px;">
+                <div class="progress-meter orange-bg" style="width: 50%"></div>
+            </div>
+        </div>
+        <div class="cell small-4"></div>
+    </div>
+    </div>
+    <div class="content">
+      <div class="large-12 cell text-left pt40 pl20 pr20">
+        <h1 class="black">Enter OTP</h1>
+        <p class="sentence2">6 digit code has been sent to <span id="display"></span></p>
+      </div>
+      <form data-abide novalidate action="confirm-email.html" method="post" autocomplete="off">
+      <div class="large-12 cell mt10 pl20 pr20">
+        <div class="grid-x">
+            <div class="small-2"><input id="n0" type="password" class="input-style3 authInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" tabindex="1" maxlength="1" size="1" required autofocus data-next="1"></div>
+            <div class="small-2"><input id="n1" type="password" class="input-style3 authInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" tabindex="2" maxlength="1" size="1" required autofocus data-next="2"></div>
+            <div class="small-2"><input id="n2" type="password" class="input-style3 authInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" tabindex="3" maxlength="1" size="1" required autofocus data-next="3"></div>
+            <div class="small-2"><input id="n3" type="password" class="input-style3 authInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" tabindex="4" maxlength="1" size="1" required autofocus data-next="4"></div>
+            <div class="small-2"><input id="n4" type="password" class="input-style3 authInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" tabindex="5" maxlength="1" size="1" required autofocus data-next="5"></div>
+            <div class="small-2"><input id="n5" type="password" class="input-style3 authInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" tabindex="6" maxlength="1" size="1" required autofocus data-next="6"></div>
+        </div>
+        <p id="countdown" class="sentence2"></p>
+        <p id="otpResend" class="sentence2" style="color: #ff7a00;">Your OTP has expired. <a id="resend-btn" href="javascript:void(0);">Resend <span style="color: #999">OTP</span></a></p>
+        <p id="maxResend" class="sentence2" style="color: #E23B06;">You have reached the maximum limit of resends.<br /><span style="color: #999">verify if this mobile number is accurate or opt for an alternative mobile number.</span></p>
+      </div>
+    </div>
+    <div class="footer pl20 pr20 text-center special-padding2">
+        <div class="large-12 cell">
+           <button id="submitOTP" type="submit" class="button expanded mt50 pt25 pb25 link-style disabled">Next</button>
+           <a id="re-enter" href="insert-mobile-number.html" target="_self" class="button expanded mt50 pt25 pb25 link-style">Re-enter mobile number</a>
+        </div>
+    </div>
+    </form>
+  </div>
+
+  <!--
+  <div class="desktop-footer text-center">
+    <p class="df-text"><a href="https://profile.digitalme.my/content/about_digitalme.pdf" target="_blank">About digitalme</a><br />
+    <a href="https://profile.digitalme.my/content/terms_of_use.pdf" target="_blank">Terms of Use</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://profile.digitalme.my/content/privacy_statement.pdf" target="_blank">Privacy Statement</a></p>
+  </div>
+  -->
+    
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/what-input.js"></script>
+  <script src="js/vendor/foundation.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    $(document).ready(function(){
+      var finalMobile = localStorage.getItem('#mobile');  
+      $('#display').html(finalMobile);
+      $('#submitOTP').prop('disabled', true);
+      $('#otpResend').hide();
+      $('#maxResend').hide();
+      $('#re-enter').hide();
+      
+      setTimer();
+
+      $('img').on('dragstart', function(e) { 
+        e.preventDefault(); 
+      });
+
+      //limit input character
+      $('input[type="password"]').attr({ maxLength : 1 });
+      
+      //auto focus
+      $('.authInput').keyup(function(e) {
+        if (this.value.length === this.maxLength) {
+            let next = $(this).data('next');
+            $('#n' + next).focus();
+        }
+      });
+
+      //enable submit btn
+      $('.authInput').on('input', function(){
+          var n0 = $('#n0').val();
+          var n1 = $('#n1').val();
+          var n2 = $('#n2').val();
+          var n3 = $('#n3').val();
+          var n4 = $('#n4').val();
+          var n5 = $('#n5').val();
+          if(n0.length === 0) {
+              $('#submitOTP').addClass('disabled');
+              $('#submitOTP').prop('disabled', true);
+          } else if(n1.length === 0) {
+              $('#submitOTP').addClass('disabled');
+              $('#submitOTP').prop('disabled', true);
+          } else if(n2.length === 0) {
+              $('#submitOTP').addClass('disabled');
+              $('#submitOTP').prop('disabled', true);
+          } else if(n3.length === 0) {
+              $('#submitOTP').addClass('disabled');
+              $('#submitOTP').prop('disabled', true);
+          } else if(n4.length === 0) {
+              $('#submitOTP').addClass('disabled');
+              $('#submitOTP').prop('disabled', true);
+          } else if(n5.length === 0) {
+              $('#submitOTP').addClass('disabled');
+              $('#submitOTP').prop('disabled', true);
+          } else {
+              $('#submitOTP').removeClass('disabled');
+              $('#submitOTP').prop('disabled', false);
+          }
+      });
+
+      //countdown timer
+      function setTimer() {
+        var timer2 = "5:00";
+          var interval = setInterval(function() {
+              var timer = timer2.split(':');
+              var minutes = parseInt(timer[0], 10);
+              var seconds = parseInt(timer[1], 10);
+              --seconds;
+              minutes = (seconds < 0) ? --minutes : minutes;
+              //console.log(minutes, seconds);
+              seconds = (seconds < 0) ? 59 : seconds;
+              seconds = (seconds < 10) ? '0' + seconds : seconds;
+              if (minutes < 0) {
+                  clearInterval(interval);
+                  $('#countdown').hide();
+                  $('#otpResend').fadeIn("fast");
+              } else {
+                  $('#countdown').html('Expires in ' + minutes + ':' + seconds);
+                  timer2 = minutes + ':' + seconds;
+              } 
+        }, 1000);
+      }
+
+      var clicks = 1;
+      $('#resend-btn').click(function(){
+        clicks += 1;
+        if (clicks <= 3) {
+          $('#countdown').fadeIn("fast");
+          $('#otpResend').hide();
+          $('#countdown').html('Expires in 5:00');
+          setTimer();
+        } else {
+          $('#otpResend').hide();
+          $('#maxResend').fadeIn("fast");
+          $('#submitOTP').hide();
+          $('#re-enter').fadeIn("fast");
+        }
+      });
+
+      $('#submitOTP').click(function(){
+        var vals = $('#n0').val() +''+ $('#n1').val() +''+ $('#n2').val() +''+ $('#n3').val() +''+ $('#n4').val() +''+ $('#n5').val();
+        alert(otpError)
+        if(otpError == true) {
+          return true;
+        } else {
+          return false;
+        }
+       });
+  
+    });
+    </script>
+</body>
+</html>

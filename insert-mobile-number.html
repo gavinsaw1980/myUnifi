@@ -1,0 +1,109 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MyUnifi</title>
+    <meta name="description" content="" />
+    <meta name="MobileOptimized" content="width" />
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+<body>
+
+  <div class="box" style="background-color: #fff !important;">
+    <div class="header">
+      <div class="grid-x">
+        <div class="cell small-4 text-left pl20">
+            <a href="preferred-name.html" target="_self"><img src="assets/img/icon-arrow-right.png" alt="Back"></a>
+        </div>
+        <div class="cell small-4">
+          <div class="progress" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuetext="40 percent" aria-valuemax="100" style="margin-top: 38px; height: 3px;">
+              <div class="progress-meter orange-bg" style="width: 40%"></div>
+          </div>
+      </div>
+      <div class="cell small-4"></div>
+    </div>
+    </div>
+    <div class="content">
+      <div class="large-12 cell text-left pt40 pl20 pr20">
+        <h1 class="black">Hi <span id="displayName"></span>,<br />Please enter your mobile<br />number</h1>
+      </div>
+      <form data-abide novalidate action="otp.html" method="post" autocomplete="off">
+      <div class="large-12 cell mt20 pl20 pr20">
+          <label>
+            <p id="mobileLabel" class="text-left showlabel-style2">Mobile Number</p>
+            <input id="mobileInput" type="text" oninput="this.value = this.value.replace(/([^+0-9]+)/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" class="input-style2" placeholder="Enter mobile number" tabindex="1" required>
+            <p id="invalid" class="error text-left">Please insert your mobile number</p>
+          </label>
+      </div>
+    </div>
+    <div class="footer pl20 pr20 text-center special-padding2">
+        <div class="large-12 cell">
+           <button id="submitMobile" type="submit" class="button expanded mt50 pt25 pb25 link-style disabled">Next</button>
+        </div>
+    </div>
+    </form>
+  </div>
+  
+  <!--
+  <div class="desktop-footer text-center">
+    <p class="df-text"><a href="https://profile.digitalme.my/content/about_digitalme.pdf" target="_blank">About digitalme</a><br />
+    <a href="https://profile.digitalme.my/content/terms_of_use.pdf" target="_blank">Terms of Use</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://profile.digitalme.my/content/privacy_statement.pdf" target="_blank">Privacy Statement</a></p>
+  </div>
+  -->
+
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/what-input.js"></script>
+  <script src="js/vendor/foundation.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    $(document).ready(function(){
+      var finalName = localStorage.getItem('#name');
+      $('#displayName').html(finalName);
+      $('#mobileLabel').hide();
+      var nL = $('#mobileLabel').val().length;
+      $('#invalid').hide();
+      $('#submitMobile').prop('disabled', true);
+  
+      $('img').on('dragstart', function(e) { 
+        e.preventDefault(); 
+      });
+
+      var cd;
+      $('#mobileInput').keyup(function(e) {
+        e.preventDefault();
+        if (cd == true) {
+
+        } else {
+          $(this).val("+60"+$(this).val());
+          cd=true;
+        }
+      });
+
+      $('#mobileInput').on('input', function(){
+          if($(this).val() == '') {
+              $(this).removeAttr("style");
+              $('#mobileLabel').hide();
+              $('#submitMobile').addClass('disabled');
+          } else {
+              $(this).css({'border-bottom': '1px solid #ff7a00'});
+              $('#mobileLabel').fadeIn('fast');
+              $('#submitMobile').removeClass('disabled');
+              $('#submitMobile').prop('disabled', false);
+          }
+      });
+
+      $('#submitMobile').click(function(){
+        var mI = $('#mobileInput').val();
+        localStorage.setItem('#mobile', mI);
+       });
+    });
+    </script>
+</body>
+</html>

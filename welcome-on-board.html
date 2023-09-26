@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MyUnifi</title>
+    <meta name="description" content="" />
+    <meta name="MobileOptimized" content="width" />
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+<body>
+
+  <div class="box orange-bg">
+    <div class="header orange-bg">
+      <div class="large-12 cell text-center circle_background2">
+        <h1 class="white special-padding4">Welcome onboard to<br />MyUnifi!</h1>
+        <p class="sentence mt20" style="margin-bottom: 0; color: #fff;">You can now log in to MyUnifi by using<br /><span id="display"></span><br /><br />How would you like to receive your OTP<br />code? Please select your preferred<br />method before we proceed.</p>
+      </div>
+    </div>
+    <div class="content orange-bg">
+        <div class="large-12 cell pt30 pl20 pr20">
+            <a href="accept.html">
+                <div class="grid-x white-bg" style="border-radius: 8px;">
+                    <div class="small-2 text-center" >
+                        <img src="assets/img/icon-email.png" alt="email" style="margin-bottom: 8px;">
+                    </div>
+                    <div class="small-8 text-left" style="padding-top: 13px;">
+                        <p class="btn-title">Email</p>
+                        <p class="btn-subtitle">Receive OTP via Email</p>
+                    </div>
+                    <div class="small-2 text-center" >
+                        <img src="assets/img/icon-circle.png" alt="">
+                    </div>
+                </div>
+            </a>
+            <a href="insert-mobile-number.html">
+                <div class="grid-x white-bg mt20" style="border-radius: 8px;">
+                    <div class="small-2 text-center">
+                        <img src="assets/img/icon-mobile.png" alt="mobile" style="margin-bottom: 8px;">
+                    </div>
+                    <div class="small-8 text-left" style="padding-top: 13px;">
+                        <p class="btn-title">Mobile number</p>
+                        <p class="btn-subtitle">Receive OTP via SMS</p>
+                    </div>
+                    <div class="small-2 text-center" >
+                        <img src="assets/img/icon-circle.png" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="footer text-center">
+    </div>
+  </div>
+
+  <!--
+  <div class="desktop-footer text-center">
+    <p class="df-text"><a href="https://profile.digitalme.my/content/about_digitalme.pdf" target="_blank">About digitalme</a><br />
+    <a href="https://profile.digitalme.my/content/terms_of_use.pdf" target="_blank">Terms of Use</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://profile.digitalme.my/content/privacy_statement.pdf" target="_blank">Privacy Statement</a></p>
+  </div>
+  -->
+    
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/what-input.js"></script>
+  <script src="js/vendor/foundation.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    $(document).ready(function(){
+      var finalEmail = localStorage.getItem('#email');
+      $('#display').html(finalEmail);
+      localStorage.clear();
+
+      $('img').on('dragstart', function(e) { 
+        e.preventDefault(); 
+      });
+    });
+    </script>
+</body>
+</html>

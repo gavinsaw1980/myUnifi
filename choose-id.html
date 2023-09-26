@@ -1,0 +1,193 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MyUnifi</title>
+    <meta name="description" content="" />
+    <meta name="MobileOptimized" content="width" />
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+<body>
+  
+  <div class="box" style="background-color: #fff !important;">
+    <!-- id type popup-->
+    <div id="selectIDPopUp" class="popup">
+      <h2>Choose ID preference</h2>
+        <label>
+          <select id="selectID" class="mt20 sb" size=3>
+            <option value="Passport" data-content="Passport">Passport</option>
+            <option value="National ID" data-content="National ID">National ID</option>
+            <option value="Organisation" data-content="Organisation">Organisation</option>
+            <option value="National ID" data-content="National ID">ID Preference 4</option>
+            <option value="Organisation" data-content="Organisation">ID Preference 5</option>
+          </select>
+        </label>
+      <button id="select-btn" type="button" class="button expanded mt20 pt25 pb25 link-style">Select</button>
+    </div>
+
+    <!--national ID type pop up-->
+    <div id="selectNationalIDPopUp" class="popup">
+      <h2>Choose Your ID type</h2> 
+      <label>
+        <select id="selectID2" class="mt20 sb" size=3>
+          <option value="MYPR" data-content="MYPR">MYPR</option>
+          <option value="MYKAD" data-content="MYKAD">MYKAD</option>
+          <option value="MYKAS" data-content="MYKAS">MYKAS</option>
+        </select>
+      </label>
+      <button id="national-select-btn" type="button" class="button expanded mt20 pt25 pb25 link-style">Select</button>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+    <div class="header">
+      <div class="grid-x">
+        <div class="cell small-4 text-left pl20">
+            <!--<a href="otp.html" target="_self"><img src="assets/img/icon-arrow-right.png" alt="Back"></a>-->
+        </div>
+        <div class="cell small-4">
+            <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuetext="75 percent" aria-valuemax="100" style="margin-top: 38px; height: 3px;">
+                <div class="progress-meter orange-bg" style="width: 75%"></div>
+            </div>
+        </div>
+        <div class="cell small-4"></div>
+      </div>
+    </div>
+    <div class="choose-content">
+      <form data-abide novalidate action="accept.html" method="post" autocomplete="off">
+      <!--choose id type-->  
+      <div class="large-12 cell text-left pt40 pl20 pr20">
+        <h1 class="black">Choose your ID preference</h1>
+        <p class="sentence3">We require more information from you in order to<br />connect you better with our services.</p>
+      </div>
+      <div class="large-12 cell mt20 pl20 pr20 pb10">
+        <p id="idLabel" class="sentence7">ID Type</p>
+      </div>
+      <div id="showIDTypePopup" class="large-12 cell mt10 pl20 pr20" style="position: relative; cursor: pointer;">
+        <img src="assets/img/icon-arrow-down.png" class="iconSelect"/>
+        <p id="displayIDText" class="sentence4">ID Type</p>
+      </div>
+      <!--display national id-->
+      <div id="displayNationalID">
+        <div class="large-12 cell mt20 pl20 pr20 pb10">
+          <p id="idLabel2" class="sentence7"></p>
+        </div>
+        <div id="showNationalIDPopup" class="large-12 cell mt10 pl20 pr20" style="position: relative; cursor: pointer;">
+          <img src="assets/img/icon-arrow-down.png" class="iconSelect"/>
+          <p id="displayNationalIDText" class="sentence4">Select</p>
+        </div>
+      </div>  
+      <!-- insert id number -->
+      <div id="displayNum">
+        <div class="large-12 cell mt20 pl20 pr20 pb10">
+          <p id="idLabel3" class="sentence7"></p>
+          <input id="numInput" type="text" class="input-style2" placeholder="" tabindex="1" required>
+        </div>
+      </div>
+    </div>
+    <div class="footer pl20 pr20 text-center special-margin">
+        <div class="large-12 cell">
+           <button id="submitID" type="submit" class="button expanded pt25 pb25 link-style disabled">Confirm</button>
+        </div>
+    </div>
+    </form>
+  </div>
+
+  <!--
+  <div class="desktop-footer text-center">
+    <p class="df-text"><a href="https://profile.digitalme.my/content/about_digitalme.pdf" target="_blank">About digitalme</a><br />
+    <a href="https://profile.digitalme.my/content/terms_of_use.pdf" target="_blank">Terms of Use</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://profile.digitalme.my/content/privacy_statement.pdf" target="_blank">Privacy Statement</a></p>
+  </div>
+  -->
+
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/what-input.js"></script>
+  <script src="js/vendor/foundation.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    $(document).ready(function(){
+      var dynamic = document.getElementById('selectID');
+      var dynamic2 = document.getElementById('selectID2');
+      dynamic.setAttribute('size', dynamic.childElementCount);
+      dynamic2.setAttribute('size', dynamic2.childElementCount);
+
+      $('img').on('dragstart', function(e) { 
+        e.preventDefault(); 
+      });
+
+      $('#overlay').hide();
+      $('#selectIDPopUp').hide();
+      $('#selectNationalIDPopUp').hide();
+      $('#idLabel').hide();
+      $('#displayNationalID').hide();
+      $('#displayNum').hide();
+      $('#submitID').prop('disabled', true);
+
+      $('#showIDTypePopup').click(function(){
+        $('#overlay').fadeIn('fast');
+        $('#selectIDPopUp').fadeIn('fast');
+      });
+
+      $('#showNationalIDPopup').click(function(){
+        $('#overlay').fadeIn('fast');
+        $('#selectNationalIDPopUp').fadeIn('fast');
+      });
+      
+      $('#select-btn').click(function(){
+        var selectedID = $('#selectID option:selected').val();
+        $('#displayIDText').html(selectedID);
+        $('#displayIDText').css('font-size', '16px');
+        $('#displayIDText').css('font-weight', '700');
+        $('#displayIDText').css('color', '#292929');
+        $('#displayNationalIDText').html('select');
+        $('#displayNationalIDText').css('font-size', '16px');
+        $('#displayNationalIDText').css('font-weight', '700');
+        $('#displayNationalIDText').css('color', '#292929');
+        $('#idLabel2').html(selectedID);
+        $('#idLabel').fadeIn('fast');
+        $('#displayNationalID').fadeIn('fast');
+        $('#numInput').removeAttr("style");
+        $('#selectID2').prop('selectedIndex',0);
+        $('#numInput').val(null);
+        $('#submitID').addClass('disabled');
+        $('#submitID').prop('disabled', true);
+        $('#displayNum').hide();
+        $('#overlay').hide();
+        $('#selectIDPopUp').hide();
+      });
+
+      $('#national-select-btn').click(function(){
+        var selectedID2 = $('#selectID2 option:selected').val();
+        $('#displayNationalIDText').html(selectedID2);
+        $('#displayNationalIDText').css('font-size', '16px');
+        $('#displayNationalIDText').css('font-weight', '700');
+        $('#displayNationalIDText').css('color', '#292929');
+        $('#idLabel3').html(selectedID2 + ' no.');
+        $('#displayNum').fadeIn('fast');
+        $('#overlay').hide();
+        $('#selectNationalIDPopUp').hide();
+      });
+  
+      $('#numInput').on('input', function(){
+          if($(this).val() == '') {
+              $(this).removeAttr("style");
+              $('#submitID').addClass('disabled');
+              $('#submitID').prop('disabled', true);
+              nameError = false;
+          } else {
+              $(this).css({'border-bottom': '1px solid #ff7a00'});
+              $('#submitID').removeClass('disabled');
+              $('#submitID').prop('disabled', false);
+              nameError = true;
+          }
+      });
+    });
+    </script>
+</body>
+</html>
